@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="就職活動中のセクハラについて、よくある場面の考え方、企業の義務、記録の残し方、相談先をまとめた情報ページ。">
+<title>これって就活セクハラ？</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#f3f6f8; --card:#ffffff; --ink:#1d2940; --muted:#5a6679; --line:#d9e0e7;
+  --accent:#0e7a73; --accent-ink:#ffffff; --accent-soft:#dff1ef;
+  --out:#c23b57; --out-soft:#fbe3e8; --gray:#a86a0c; --gray-soft:#fbefd9; --ok:#2f7a4b; --ok-soft:#e1f2e7;
+  --round:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Noto Sans JP",sans-serif;
+  --sans:"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#111821;--card:#18222e;--ink:#e4eaf1;--muted:#9eabbb;--line:#2e3b4a;
+  --accent:#5cc7bd;--accent-ink:#0b2522;--accent-soft:#17332f;
+  --out:#f08199;--out-soft:#3a1f27;--gray:#e8b35c;--gray-soft:#362b17;--ok:#7fcf9c;--ok-soft:#1b3024;}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--bg:#111821;--card:#18222e;--ink:#e4eaf1;--muted:#9eabbb;--line:#2e3b4a;
+  --accent:#5cc7bd;--accent-ink:#0b2522;--accent-soft:#17332f;
+  --out:#f08199;--out-soft:#3a1f27;--gray:#e8b35c;--gray-soft:#362b17;--ok:#7fcf9c;--ok-soft:#1b3024;}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.8;padding-inline:16px;padding-block:24px 56px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--round);line-height:1.4;text-wrap:balance;margin:0}
+h1{font-size:clamp(28px,6vw,40px);font-weight:800}
+h2{font-size:22px;font-weight:800}
+h3{font-size:16px;font-weight:700}
+p{margin:0}
+.eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:3px 12px;margin-bottom:12px}
+.hero p{margin-top:12px;color:var(--muted);max-width:40em}
+.hero .lead{color:var(--ink);font-size:17px}
+section{display:flex;flex-direction:column;gap:14px}
+.sub{color:var(--muted)}
+/* quiz */
+.score{display:flex;flex-wrap:wrap;gap:8px;font-size:13px;color:var(--muted);align-items:center}
+.score b{font-variant-numeric:tabular-nums;color:var(--ink)}
+.quiz{display:flex;flex-direction:column;gap:12px;padding:0;margin:0;list-style:none}
+.q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;display:flex;flex-direction:column;gap:10px}
+.q .scene{font-weight:700;font-size:16px}
+.q .scene small{display:block;font-weight:500;font-size:12px;color:var(--muted);letter-spacing:.04em}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices button{font:inherit;font-size:14px;font-weight:700;border-radius:999px;padding:6px 16px;cursor:pointer;background:transparent;border:1.5px solid var(--line);color:var(--ink)}
+.choices button:hover{border-color:var(--accent)}
+.choices button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--card)}
+button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.verdict{border-radius:10px;padding:10px 14px;font-size:14px}
+.verdict .v{font-family:var(--round);font-weight:800;font-size:15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.verdict .you{font-family:var(--sans);font-size:12px;font-weight:500;color:var(--muted)}
+.verdict.out{background:var(--out-soft)} .verdict.out .v{color:var(--out)}
+.verdict.gray{background:var(--gray-soft)} .verdict.gray .v{color:var(--gray)}
+.verdict.ok{background:var(--ok-soft)} .verdict.ok .v{color:var(--ok)}
+.grp{display:flex;flex-direction:column;gap:10px}
+.grp h3{display:flex;align-items:center;gap:8px}
+.q .exp{font-size:14px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:8px;font-size:12px}
+.pill{border-radius:999px;padding:2px 10px;font-weight:700}
+.pill.out{background:var(--out-soft);color:var(--out)} .pill.gray{background:var(--gray-soft);color:var(--gray)} .pill.ok{background:var(--ok-soft);color:var(--ok)}
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.rule{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.rule p{font-size:14px;color:var(--muted);margin-top:4px}
+/* steps */
+ol.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:10px}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:32px 1fr;gap:12px;align-items:start}
+ol.steps li::before{content:counter(s);font-family:var(--round);font-weight:800;width:32px;height:32px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+ol.steps li p{color:var(--muted);font-size:14px}
+.memo{background:var(--card);border:1px dashed var(--line);border-radius:12px;padding:12px 14px;font-size:13px;white-space:pre-wrap;font-family:var(--sans);margin:0;color:var(--ink)}
+.btn{font:inherit;font-weight:700;font-size:14px;border-radius:999px;padding:8px 18px;cursor:pointer;background:var(--accent);color:var(--accent-ink);border:0;align-self:flex-start}
+.status{font-size:12px;color:var(--muted);min-height:1.2em}
+/* contacts */
+.contacts{display:flex;flex-direction:column;gap:10px}
+.c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:1fr;gap:4px}
+.c .tags{display:flex;flex-wrap:wrap;gap:6px;font-size:11px}
+.c .tags span{background:var(--accent-soft);color:var(--accent);border-radius:4px;padding:0 7px;font-weight:700}
+.c p{font-size:14px;color:var(--muted)}
+.c.urgent{border-color:var(--out)}
+.c.urgent h3{color:var(--out)}
+a{color:var(--accent)}
+.op{font-size:12px;color:var(--muted);margin:0 0 8px}
+.notice{background:var(--accent-soft);border-radius:8px;padding:10px 14px;font-size:14px}
+.foot{border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+.biz{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:14px}
+@media (prefers-reduced-motion:no-preference){.verdict{animation:in .2s ease-out}@keyframes in{from{transform:translateY(-3px)}to{transform:none}}}
+</style>
+<style>[hidden]{display:none!important}body{margin:0}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="hero">
+    <span class="eyebrow">2026年10月1日から 企業の義務に</span>
+    <p class="op">個人が運営する情報ページです。厚生労働省などの公的機関とは関係ありません。</p>
+    <h1>これって就活セクハラ？</h1>
+    <p class="lead">面接やインターンシップで、モヤモヤする言動を受けたことはありませんか。</p>
+    <p>2026年10月から、就職活動中の学生や求職者へのセクハラを防ぐことが、すべての企業の義務になりました。あなたが「おかしい」と感じたことは、相談していいことです。</p>
+  </header>
+
+  <section aria-labelledby="quiz-h">
+    <h2 id="quiz-h">よくある場面と考え方</h2>
+    <p class="sub">就職活動でよくある場面を、問題になりやすさで3つに分けて紹介します。</p>
+    <div class="notice" role="note"><b>この分類はあくまでめやすです。</b>実際にセクハラにあたるかどうかは、状況によって変わります。どの分類の場面であっても、あなたが不快に感じたり、おかしいと思ったりしたなら、相談してかまいません。</div>
+    <ul class="quiz" id="quiz"></ul>
+  </section>
+
+  <section aria-labelledby="rule-h">
+    <h2 id="rule-h">企業が守らなければならないこと</h2>
+    <p class="sub">男女雇用機会均等法の改正で、企業には次のような対応が求められています。</p>
+    <div class="rules">
+      <div class="rule"><h3>セクハラを許さない方針</h3><p>採用に関わる社員に、求職者へのセクハラを許さないことを伝え、研修をする。</p></div>
+      <div class="rule"><h3>面接・面談のルール</h3><p>日中に行う、密室を避ける、私的な連絡をしない、などのルールを決めて守らせる。</p></div>
+      <div class="rule"><h3>相談できる窓口</h3><p>求職者が相談できる窓口をつくり、採用ページなどで知らせる。</p></div>
+      <div class="rule"><h3>起きたときの対応</h3><p>事実を確認し、相談した人に配慮し、行為者への措置と再発防止を行う。</p></div>
+      <div class="rule"><h3>相談しても不利にならない</h3><p>相談したことを理由に、選考で不利に扱ってはいけない。相談内容のプライバシーも守る。</p></div>
+      <div class="rule"><h3>対象は社外の場も</h3><p>面談に使うカフェや飲食店、オンライン面接、メッセージのやりとりも含まれる。</p></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="do-h">
+    <h2 id="do-h">モヤモヤしたときにできること</h2>
+    <ol class="steps">
+      <li><div><h3>断っていい</h3><p>食事の誘いや個人的な連絡先の交換は、断っても問題ありません。「選考のご連絡は会社のメールでお願いします」と伝えるのも一つの方法です。</p></div></li>
+      <li><div><h3>記録を残す</h3><p>日時、場所、相手の名前、言われたこと・されたことを、できるだけそのままメモします。メッセージはスクリーンショットで保存します。</p></div></li>
+      <li><div><h3>一人で会わない</h3><p>夜の面談や、お酒の席での個別の面談は避けます。OB・OG訪問は日中、人目のある場所を提案してかまいません。</p></div></li>
+      <li><div><h3>ひとりで抱えずに相談する</h3><p>下の相談先に連絡します。匿名で相談できる窓口もあります。</p></div></li>
+    </ol>
+    <h3>相談用のメモのひな形</h3>
+    <pre class="memo" id="memo">■ 日時:　年　月　日(　)　時ごろ
+■ 場所:(例:本社の面接室/〇〇駅近くのカフェ/オンライン)
+■ 相手:(会社名・部署・名前・役職)
+■ 言われたこと・されたこと:(できるだけそのままの言葉で)
+■ そのとき周りにいた人:
+■ 残っている記録:(メール、メッセージのスクリーンショットなど)
+■ 自分が望むこと:(話を聞いてほしい/会社に伝えてほしい/選考を続けたい など)</pre>
+    <button type="button" class="btn" id="copyMemo">メモのひな形をコピー</button>
+    <div class="status" id="status" role="status"></div>
+  </section>
+
+  <section aria-labelledby="ct-h">
+    <h2 id="ct-h">相談先</h2>
+    <p class="notice">このページでは、個別の相談は受け付けていません。下の窓口にご相談ください。</p>
+    <div class="contacts">
+      <div class="c"><div class="tags"><span>応募先の会社</span></div><h3>応募先企業の相談窓口</h3><p>2026年10月から、企業には求職者向けの相談窓口を設けることが義務づけられています。採用ページや求人票、面接の案内メールに記載があるか確認してください。相談を理由に選考で不利に扱うことは禁止されています。</p></div>
+      <div class="c"><div class="tags"><span>学生</span><span>身近</span></div><h3>大学のキャリアセンター・学生相談室</h3><p>在学中の学生なら、まず身近な相談先です。企業への対応や、ほかの相談先へのつなぎも相談できます。</p></div>
+      <div class="c"><div class="tags"><span>国の機関</span><span>匿名可</span><span>無料</span></div><h3>都道府県労働局 雇用環境・均等部(室)</h3><p>就職活動中のハラスメントの相談を受け付けています。企業への助言や、トラブル解決の援助も行います。受付は平日8時30分〜17時15分(土日祝日・年末年始を除く)。お住まいの都道府県の労働局を検索してください。</p></div>
+      <div class="c"><div class="tags"><span>国の機関</span><span>学生・既卒</span></div><h3>新卒応援ハローワーク</h3><p>就職活動全般の相談とあわせて、ハラスメントの悩みも相談できます。</p></div>
+      <div class="c"><div class="tags"><span>国の案内</span><span>電話・SNS</span></div><h3>気持ちがつらいとき まもろうよ こころ</h3><p>眠れない、何も手につかないなど、気持ちがつらいときに電話やSNSで話を聞いてもらえる窓口を、厚生労働省がまとめています。<a href="https://www.mhlw.go.jp/mamorouyokokoro/" target="_blank" rel="noopener">まもろうよ こころ(厚生労働省)</a></p></div>
+      <div class="c urgent"><div class="tags"><span>緊急</span></div><h3>身の危険を感じたら 110番</h3><p>体を触られた、帰らせてもらえない、脅されたなど、危険を感じたときは、その場を離れて警察に連絡してください。</p></div>
+    </div>
+    <p class="sub">厚生労働省の就活ハラスメントに関する案内も参考になります:<a href="https://www.no-harassment.mhlw.go.jp/syukatsu_hara/student/" target="_blank" rel="noopener">学生の皆様へ(厚生労働省)</a></p>
+  </section>
+
+  <section class="biz" aria-labelledby="biz-h">
+    <h3 id="biz-h">企業の採用担当の方へ</h3>
+    <p class="sub">求職者向けの相談窓口の案内や、面接官のルールを含む社内規程のひな形を、<a href="../generator/">「就活セクハラ防止規程ジェネレーター」</a>で作成できます。このツールは、このページと同じ運営者が無料で提供しています。</p>
+  </section>
+
+  <footer class="foot">
+    <p><b>運営:</b>(運営者名) ・ <b>最終更新:</b>2026年9月29日</p>
+    <p>当ページは個人が運営する情報ページであり、厚生労働省・都道府県労働局などの公的機関とは関係ありません。窓口の名称や受付時間は変わることがあります。最新の情報は各機関の公式ページで確認してください。</p>
+    <p>このページは、法令と厚生労働省の公開資料をもとに一般的な情報をまとめたものです。場面の分類はめやすであり、実際にセクハラにあたるかどうかは状況によって異なります。判断に迷うときは、上の相談先に相談してください。</p>
+  </footer>
+</div>
+
+<script>
+const Q=[
+  {s:"面接で「恋人はいるの？」と聞かれた",tag:"面接",a:"out",e:"交際相手の有無は、選考と関係のない私的な質問です。性的な関心にもとづく質問はセクハラにあたる可能性があります。答えなくてかまいません。"},
+  {s:"面接のあと、面接官から個人のLINEで「今度ご飯行こう」と連絡が来た",tag:"連絡",a:"out",e:"選考の立場を持つ人が、私的な連絡手段で個人的に誘うのは不適切です。企業には私的な連絡をさせないルールづくりが求められています。やりとりはスクリーンショットで保存しておきましょう。"},
+  {s:"「食事に付き合ってくれたら、次の選考に進めるよ」と言われた",tag:"面接",a:"out",e:"選考の結果をちらつかせて誘うことは、典型的な就活セクハラです。記録を残して相談してください。"},
+  {s:"インターンシップ後の懇親会で、恋愛経験をしつこく聞かれた",tag:"インターン",a:"out",e:"懇親会も採用活動の一部です。性的な経験や恋愛についてしつこく聞くことは、セクハラにあたる可能性が高い行為です。"},
+  {s:"面接の終わりに、面接官に肩や手を触られた",tag:"面接",a:"out",e:"必要のない身体への接触はセクハラにあたります。不快に感じたら、記録を残して相談してください。"},
+  {s:"オンライン面接で「全身を映して」「部屋の中を見せて」と言われた",tag:"オンライン",a:"out",e:"選考に必要のない要求です。断ってかまいません。録画や画面の記録ができる場合は残しておきましょう。"},
+  {s:"面接中に、容姿や体型について話題にされた",tag:"面接",a:"gray",e:"ほめ言葉のつもりでも、容姿や体型を話題にすることは不快に感じる人が多く、内容や言い方によってはセクハラにあたります。モヤモヤしたら相談してかまいません。"},
+  {s:"「結婚や出産の予定は？」と聞かれた",tag:"面接",a:"gray",e:"セクハラにあたらない場合でも、採用選考で聞くべきではない質問とされています。答えたくなければ「選考に関係のある質問をお願いします」と伝えてかまいません。"},
+  {s:"OB訪問で、夜に居酒屋を指定された",tag:"OB・OG訪問",a:"gray",e:"それ自体がすぐにセクハラとは言えませんが、トラブルになりやすい場面です。日中にカフェなど人目のある場所を提案してかまいません。"},
+  {s:"食事の誘いを断ったら、急に選考の連絡が来なくなった",tag:"選考",a:"out",e:"誘いを断ったことを理由に不利に扱うことは、セクハラの一つの形です。誘いのやりとりと、その後の連絡の経過を記録して相談してください。"},
+  {s:"採用担当者から、会社のメールアドレスで面接日程の連絡が来た",tag:"連絡",a:"ok",e:"会社の連絡手段を使った選考の連絡で、通常のやりとりです。ただし、やりとりの内容に不快な点があれば、相談してかまいません。"}
+];
+const GROUPS=[
+  {k:"out",t:"問題がある可能性が高い場面"},
+  {k:"gray",t:"状況によって問題になる場面"},
+  {k:"ok",t:"通常のやりとりであることが多い場面"}];
+const $=id=>document.getElementById(id);
+$("quiz").innerHTML=GROUPS.map(g=>`<li class="grp"><h3><span class="pill ${g.k}">${g.t}</span></h3><ul class="quiz">${
+  Q.filter(q=>q.a===g.k).map(q=>`<li class="q"><div class="scene"><small>${q.tag}</small>${q.s}</div><p class="exp">${q.e}</p></li>`).join("")
+}</ul></li>`).join("");
+$("copyMemo").addEventListener("click",()=>{
+  const t=$("memo").textContent;
+  navigator.clipboard.writeText(t).then(()=>{$("status").textContent="コピーしました。メモアプリなどに貼り付けて使ってください。";},()=>{
+    const r=document.createRange(); r.selectNodeContents($("memo")); const s=getSelection(); s.removeAllRanges(); s.addRange(r);
+    $("status").textContent="自動でコピーできなかったため、ひな形を選択しました。コピー操作でお使いください。";
+  });
+});
+</script>
+
+</body>
+</html>

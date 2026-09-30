@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="採用活動の内容と相談窓口を入力すると、求職者等へのセクハラ防止規程のひな形を作成できる無料ツール。">
+<title>就活セクハラ防止規程ジェネレーター</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Zen+Old+Mincho:wght@600;700&display=swap">
+<style>
+:root{
+  --bg:#eef1f2; --panel:#ffffff; --paper:#ffffff; --ink:#1b2629; --muted:#5d6b70; --line:#d5dcde;
+  --accent:#5b3f78; --accent-ink:#ffffff; --accent-soft:#ece5f3;
+  --l1:#3f7a5a; --l2:#b7862a; --l3:#c0612b; --l4:#b3261e;
+  --l1s:#e5f1ea; --l2s:#f7eed9; --l3s:#f8e6db; --l4s:#f7dedc;
+  --shadow:0 1px 2px rgba(20,40,50,.06),0 8px 24px rgba(20,40,50,.08);
+  --sans:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+  --serif:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#12181b;--panel:#1a2226;--paper:#1e272b;--ink:#e3e9eb;--muted:#9aa8ad;--line:#33424a;
+  --accent:#c6aee0;--accent-ink:#20152c;--accent-soft:#2f2540;
+  --l1:#7cc59b;--l2:#e2b85b;--l3:#ec9a6a;--l4:#f08a82;--l1s:#1f3329;--l2s:#35301f;--l3s:#3a2a20;--l4s:#3c2323;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3);}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--bg:#12181b;--panel:#1a2226;--paper:#1e272b;--ink:#e3e9eb;--muted:#9aa8ad;--line:#33424a;
+  --accent:#c6aee0;--accent-ink:#20152c;--accent-soft:#2f2540;
+  --l1:#7cc59b;--l2:#e2b85b;--l3:#ec9a6a;--l4:#f08a82;--l1s:#1f3329;--l2s:#35301f;--l3s:#3a2a20;--l4s:#3c2323;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.3);}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.7;padding-inline:16px;padding-block:20px 48px}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:20px}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+header.top h1{font-family:var(--serif);font-size:26px;margin:0;letter-spacing:.02em;text-wrap:balance}
+header.top p{margin:4px 0 0;color:var(--muted)}
+.badge{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-weight:700;letter-spacing:.04em}
+.grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:20px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+form{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:18px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);max-height:calc(100vh - 24px);overflow:auto}
+@media (max-width:900px){form{position:static;max-height:none}}
+fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+legend{font-size:12px;font-weight:700;color:var(--accent);letter-spacing:.08em;margin-bottom:6px;padding:0}
+label.f{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--muted)}
+input[type=text],input[type=number],select{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:7px 10px;width:100%}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.checks{display:flex;flex-wrap:wrap;gap:6px}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;cursor:pointer;background:var(--bg)}
+.chk:has(input:checked){border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:700}
+.chk input{accent-color:var(--accent);margin:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hint{font-size:12px;color:var(--muted);margin:0}
+.out{display:flex;flex-direction:column;gap:12px;min-width:0}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.bar .btns{display:flex;flex-wrap:wrap;gap:8px}
+button{font:inherit;font-weight:700;border-radius:6px;padding:8px 16px;cursor:pointer;border:1px solid var(--accent)}
+.primary{background:var(--accent);color:var(--accent-ink)}
+.ghost{background:transparent;color:var(--accent)}
+.status{font-size:12px;color:var(--muted);min-height:1.4em}
+.gdoc{background:var(--accent-soft);border:1px solid var(--line);border-radius:8px;padding:12px 16px;font-size:13px}
+.gdoc p{margin:0 0 6px}.gdoc ol{margin:0 0 6px;padding-left:1.4em}
+.gdoc a{color:var(--accent);font-weight:700}
+.toc{display:flex;flex-wrap:wrap;gap:6px;font-size:12px}
+.toc a{color:var(--muted);text-decoration:none;border-bottom:1px dotted var(--line)}
+.toc a:hover{color:var(--accent)}
+.paper{background:var(--paper);box-shadow:var(--shadow);border-radius:4px;padding:48px clamp(18px,5vw,64px);min-width:0}
+.doc{max-width:720px;margin:0 auto}
+.doc .dtitle{font-family:var(--serif);font-size:26px;text-wrap:balance;text-align:center;margin:0 0 4px;letter-spacing:.06em}
+.doc .dsub{text-align:center;color:var(--muted);margin:0 0 4px}
+.doc .dmeta{text-align:center;font-size:12px;color:var(--muted);margin:0 0 32px}
+.doc h2{font-family:var(--serif);font-size:19px;margin:36px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--ink);text-wrap:balance}
+.doc h3{font-size:15px;margin:22px 0 6px}
+.doc p{margin:0 0 10px}
+.doc ul,.doc ol{margin:0 0 12px;padding-left:1.4em}
+.doc li{margin-bottom:3px}
+.tbl{overflow-x:auto;margin:0 0 14px}
+.doc table{border-collapse:collapse;width:100%;font-size:13px;min-width:460px}
+.doc th,.doc td{border:1px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+.doc th{background:var(--accent-soft);font-weight:700;white-space:nowrap}
+.box{border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin:0 0 14px;background:var(--bg)}
+.box .bl{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--accent);margin-bottom:4px}
+.box p:last-child{margin:0}
+.lv td:first-child{font-weight:700;white-space:nowrap}
+.lv tr.l1 td:first-child{color:var(--l1);background:var(--l1s)}
+.lv tr.l2 td:first-child{color:var(--l2);background:var(--l2s)}
+.lv tr.l3 td:first-child{color:var(--l3);background:var(--l3s)}
+.lv tr.l4 td:first-child{color:var(--l4);background:var(--l4s)}
+.tag{display:inline-block;font-size:11px;font-weight:700;padding:0 7px;border-radius:3px;margin-right:6px;vertical-align:1px}
+.tag.l2{background:var(--l2s);color:var(--l2)}.tag.l3{background:var(--l3s);color:var(--l3)}.tag.l4{background:var(--l4s);color:var(--l4)}
+.note{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin-top:32px}
+@media (prefers-reduced-motion:no-preference){.chk{transition:background .15s,border-color .15s}}
+</style>
+<style>[hidden]{display:none!important}body{margin:0}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <span class="badge">求職者等へのセクハラ防止 ・ 2026年10月1日施行対応</span>
+      <h1>就活セクハラ防止規程ジェネレーター</h1>
+      <p>採用活動の内容と相談窓口を入力すると、社内規程・面接官ルール・求職者向けの窓口案内がその場で完成します。できあがったらWordで保存できます。</p>
+    </div>
+  </header>
+
+  <div class="grid">
+    <form id="f" autocomplete="off">
+      <fieldset>
+        <legend>1. 基本情報</legend>
+        <label class="f">会社名(法人名・事業者名)<input type="text" id="company" value="株式会社さくらフーズ"></label>
+        <label class="f">事業所・ブランド名(任意)<input type="text" id="shop" value=""></label>
+        <label class="f">従業員数(パート・アルバイト含む)
+          <select id="size">
+            <option value="s">10人以下</option>
+            <option value="m" selected>11〜30人</option>
+            <option value="l">31人以上</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>2. 採用活動の内容</legend>
+        <div class="checks">
+          <label class="chk"><input type="checkbox" id="newgrad" checked>新卒採用</label>
+          <label class="chk"><input type="checkbox" id="midcareer" checked>中途採用</label>
+          <label class="chk"><input type="checkbox" id="parttime" checked>パート・アルバイト採用</label>
+          <label class="chk"><input type="checkbox" id="intern">インターンシップ</label>
+          <label class="chk"><input type="checkbox" id="obog">OB・OG訪問・リクルーター面談</label>
+          <label class="chk"><input type="checkbox" id="trainee">実習生の受け入れ</label>
+          <label class="chk"><input type="checkbox" id="online" checked>オンライン面接</label>
+          <label class="chk"><input type="checkbox" id="party">懇親会・食事会</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. 担当者と窓口</legend>
+        <label class="f">採用の責任者<input type="text" id="manager" value="代表取締役"></label>
+        <label class="f">面接・面談を担当する人<input type="text" id="interviewer" value="店長・本部の人事担当"></label>
+        <label class="f">求職者向けの相談窓口<input type="text" id="desk" value="本部 総務担当(佐藤)"></label>
+        <label class="f">窓口の連絡先(メール・電話)<input type="text" id="contact" value="soudan@example.co.jp"></label>
+        <label class="f">外部の相談先
+          <select id="external">
+            <option value="sr" selected>顧問の社会保険労務士</option>
+            <option value="lawyer">顧問弁護士</option>
+            <option value="both">社会保険労務士・弁護士の両方</option>
+            <option value="none">未定</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>4. 面談のルール</legend>
+        <div class="row2">
+          <label class="f">面談の開始(時)<input type="number" id="hourFrom" min="0" max="23" value="9"></label>
+          <label class="f">面談の終了(時)<input type="number" id="hourTo" min="1" max="24" value="18"></label>
+        </div>
+        <label class="f">求職者との連絡手段<input type="text" id="channel" value="会社のメールアドレスと会社の電話"></label>
+        <label class="f">運用開始日<input type="text" id="start" value="2026年10月1日"></label>
+        <p class="hint">記入例が入っています。自社の内容に書き換えてください。</p>
+      </fieldset>
+    </form>
+
+    <section class="out">
+      <div class="bar">
+        <nav class="toc" id="toc"></nav>
+        <div class="btns">
+          <button type="button" class="ghost" id="copyBtn">テキストをコピー</button>
+          <button type="button" class="ghost" id="gdocBtn">Googleドキュメント用にコピー</button>
+          <button type="button" class="primary" id="docxBtn" hidden>Wordで保存</button>
+        </div>
+      </div>
+      <div class="status" id="status" role="status"></div>
+      <div class="gdoc" id="gdocHelp" hidden>
+        <p><strong>書式つきでコピーしました。</strong>次の手順でGoogleドキュメントに貼り付けてください。</p>
+        <ol>
+          <li><a href="https://docs.new" target="_blank" rel="noopener">新しいGoogleドキュメントを開く</a>(Googleにログインした状態で開きます)</li>
+          <li>開いた文書で貼り付けます(Windowsは Ctrl+V、Macは ⌘+V)。見出し・表・枠がそのまま入ります。</li>
+        </ol>
+        <p class="hint">Wordで保存したファイルをGoogleドライブにアップロードして開く方法もあります。</p>
+      </div>
+      <article class="paper"><div class="doc" id="doc"></div></article>
+    </section>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const FEAT_KEYS = ["newgrad","midcareer","parttime","intern","obog","trainee","online","party"];
+const FIELDS = ["company","shop","size",...FEAT_KEYS,"manager","interviewer","desk","contact","external","hourFrom","hourTo","channel","start"];
+const EXT_LABEL = {sr:"顧問の社会保険労務士",lawyer:"顧問弁護士",both:"顧問の社会保険労務士・弁護士",none:""};
+
+function read(){
+  const s={};
+  FIELDS.forEach(k=>{const el=$(k); if(!el){s[k]=false;return;} s[k]= el.type==="checkbox"? el.checked : el.value.trim();});
+  s.company ||= "当社"; s.shop = s.shop || s.company;
+  s.manager ||= "代表者"; s.interviewer ||= "面接担当者"; s.desk ||= "人事担当"; s.channel ||= "会社のメールアドレスと会社の電話";
+  s.hourFrom = Math.min(23,Math.max(0,parseInt(s.hourFrom)||9)); s.hourTo = Math.min(24,Math.max(s.hourFrom+1,parseInt(s.hourTo)||18));
+  s.start ||= "2026年10月1日";
+  return s;
+}
+
+/* ---------- 文書一式(ブロックの配列) ---------- */
+function build(s){
+  const B=[]; const h=t=>B.push({t:"h2",text:t}); const h3=t=>B.push({t:"h3",text:t});
+  const p=t=>B.push({t:"p",text:t}); const ul=a=>B.push({t:"ul",items:a}); const ol=a=>B.push({t:"ol",items:a});
+  const box=(label,text)=>B.push({t:"box",label,text}); const tbl=(head,rows,cls)=>B.push({t:"table",head,rows,cls});
+  const ext=EXT_LABEL[s.external];
+  const who=["応募者","面接を受ける人"];
+  if(s.intern) who.push("インターンシップの参加者");
+  if(s.obog) who.push("OB・OG訪問やリクルーター面談に来る学生");
+  if(s.trainee) who.push("教育実習・看護実習などの実習生");
+  const kinds=[s.newgrad&&"新卒採用",s.midcareer&&"中途採用",s.parttime&&"パート・アルバイト採用",s.intern&&"インターンシップ",s.obog&&"OB・OG訪問・リクルーター面談",s.trainee&&"実習生の受け入れ"].filter(Boolean);
+  const hours=`${s.hourFrom}時〜${s.hourTo}時`;
+
+  B.push({t:"title",text:"求職者等に対するセクシュアルハラスメント防止規程"});
+  B.push({t:"sub",text:s.shop!==s.company?`${s.company} ${s.shop}`:s.company});
+  B.push({t:"meta",text:`制定 ${s.start} / 対象の採用活動:${kinds.join("、")||"採用活動全般"}`});
+
+  h("1. 目的と対象");
+  p(`この規程は、${s.company}の採用活動などにおいて、求職者等に対するセクシュアルハラスメント(以下「就活セクハラ」)を防ぎ、誰もが安心して応募・参加できる環境をつくるためのものです。`);
+  p("2026年10月1日から、男女雇用機会均等法の改正により、事業主には求職者等へのセクシュアルハラスメントを防ぐための措置が義務づけられます。");
+  h3("守る対象(求職者等)");
+  ul(who);
+  h3("この規程を守る人");
+  ul(["採用活動に関わるすべての役員・従業員(面接官、リクルーター、インターンシップの受け入れ担当者、OB・OGとして学生と会う社員を含む)","採用業務を委託する場合の委託先には、この規程の内容を伝え、協力を求める"]);
+  p("社内だけでなく、面談に使う飲食店、オンライン面接、SNSやメッセージでのやりとりなど、採用活動に関わるすべての場面が対象です。");
+
+  h("2. 基本方針");
+  p(`${s.company}は、求職者等に対するセクシュアルハラスメントを決して許しません。採用活動に関わる者の立場は、求職者等に対して強い影響力を持つことを自覚し、公正で誠実な対応を徹底します。`);
+  ul(["就活セクハラを行った者には、厳正に対処します。",
+      "求職者等が安心して相談できる窓口を設け、採用ページなどで知らせます。",
+      "相談したことや、事実確認に協力したことを理由に、選考で不利益に扱うことはありません。"]);
+
+  h("3. 就活セクハラにあたる行為の例");
+  tbl(["区分","具体例"],[
+    ["性的な発言","容姿や体型について話題にする/恋愛経験や性的な経験を質問する/性的な冗談を言う/交際相手の有無や結婚・出産の予定を聞く"],
+    ["性的な行動","面接の前後に必要なく肩や手に触れる/しつこく食事や飲みに誘う/性的な画像を見せる・送る/性的な関係を求める"],
+    ["立場を利用した働きかけ","「食事に付き合えば選考が有利になる」とほのめかす/断ったことを理由に選考で不利に扱う/選考を口実に個人的に会おうとする"]]);
+  p("交際相手の有無や結婚・出産の予定などの質問は、セクハラにあたらない場合でも、採用選考で聞くべきではない事項です。");
+
+  h("4. 採用活動の行動ルール");
+  p(`面接・面談を担当する${s.interviewer}をはじめ、採用活動に関わる者は、次のルールを守ります。`);
+  const rules=[
+    `面接・面談は、原則として${hours}の間に行う。`,
+    "面接・面談は、会社の会議室など、外から様子がわかる場所で行う。密室や個室での1対1は避ける。",
+    "面接はできるだけ2名以上で行う。1名で行う場合は、日時と場所を事前に責任者へ報告する。",
+    `求職者等との連絡は、${s.channel}に限る。個人の電話番号、個人のSNSアカウント、私的なメッセージアプリは使わない。`,
+    "選考と関係のない私的な話題(恋愛、容姿、家族計画など)は持ち出さない。",
+    "選考の結果や内容について、非公式に約束したり、ほのめかしたりしない。"];
+  if(s.online) rules.push("オンライン面接は会社のアカウントから招待し、選考に関係のない服装や部屋の様子について話題にしない。録画する場合は事前に求職者の同意を得る。");
+  if(s.party) rules.push("懇親会や食事会は、会社が主催する公式の場に限り、複数の社員が参加する。飲酒を強要せず、二次会や個別の誘いは行わない。");
+  if(s.obog) rules.push("OB・OG訪問やリクルーター面談は、会社に事前に届け出たうえで、日中にカフェや社内など人目のある場所で行う。夜間や飲酒を伴う面談は行わない。");
+  if(s.intern) rules.push("インターンシップの受け入れ担当者は、参加者を業務外で個別に誘わない。参加者の連絡先は、実施に必要な範囲でのみ使う。");
+  if(s.trainee) rules.push("実習生の指導は、指導担当者を明確にし、実習の時間と場所の中で行う。");
+  ol(rules);
+
+  h("5. 相談窓口");
+  p("求職者等が就活セクハラについて相談できる窓口を、次のとおり設けます。窓口の案内は、採用ページ、求人票、面接の案内メールなどに記載します。");
+  const deskRows=[["相談窓口",s.desk],["連絡先",s.contact||"(未設定)"],["受付時間",`平日 ${hours}`]];
+  if(ext) deskRows.push(["外部の相談先",`${ext}(社内の窓口で対応が難しい場合)`]);
+  tbl(["項目","内容"],deskRows);
+  ul(["窓口の担当者は、選考の担当者とは別の人が務めることが望ましい。",
+      "相談は、メールや電話のほか、匿名でも受け付ける。",
+      "窓口の担当者は、相談者の話を否定せずに聞き、相談したことで選考に影響しないことを伝える。"]);
+
+  h("6. 相談があったときの対応");
+  ol(["相談を受けた窓口は、内容を記録し(付録2)、速やかに"+s.manager+"へ報告する。",
+      "相談者の意向を確認したうえで、関係者から事情を聴き、事実を確認する。",
+      "相談者に対しては、選考日程の調整、面接担当者の変更など、必要な配慮を行う。",
+      "事実が確認された場合は、行為者に対して必要な措置を行う。懲戒処分については就業規則に基づいて判断する。",
+      "採用活動の関係者に改めて規程を周知するなど、再発防止策をとる。",
+      "相談者には、対応の結果を可能な範囲で伝える。"]);
+  p(`行為者への懲戒処分を行うには、就業規則に根拠となる定めが必要です。就業規則への規定の追加は、${ext||"社会保険労務士"}に相談してください。`);
+
+  h("7. プライバシーの保護と不利益な取扱いの禁止");
+  ul(["相談者と行為者のプライバシーを守り、相談の内容は対応に必要な範囲の人にしか共有しない。",
+      "相談したこと、事実確認に協力したことを理由に、選考で不利に扱ったり、内定を取り消したりしない。",
+      "これらのことを、採用活動に関わる者と求職者等の双方に知らせる。"]);
+
+  h("8. 周知と研修");
+  ul(["この規程は、採用活動に関わるすべての者に、採用シーズンの前に説明する。",
+      "面接官やリクルーターになる者には、初めて担当する前に研修を行う。",
+      "付録1の面接官チェックリストを、面接の前に確認する。",
+      "規程は年1回、または問題が起きたときに見直す。"]);
+
+  h("付録1 面接官チェックリスト");
+  const chk=[`面接・面談は${hours}の間で、外から様子がわかる場所で行う`,"できるだけ2名で対応する(1名の場合は事前に報告した)",`連絡は${s.channel}だけで行う`,"容姿・恋愛・結婚や出産の予定など、選考と関係のない質問をしない","選考結果について非公式な約束やほのめかしをしない","求職者の身体に触れない"];
+  if(s.party) chk.push("懇親会では飲酒を勧めず、個別の誘いをしない");
+  if(s.online) chk.push("オンライン面接では会社のアカウントを使い、録画は同意を得てから行う");
+  B.push({t:"ul",items:chk.map(c=>"□ "+c)});
+
+  h("付録2 相談受付記録シート");
+  tbl(["項目","記入欄"],[["受付日時","　年　月　日(　)　時　分"],["受付方法","メール/電話/面談/その他"],["相談者","(匿名の場合は「匿名」)"],["相談の内容",""],["行為が起きた日時・場所",""],["関係者",""],["相談者の希望",""],["対応の経過",""],["報告先・日時",""]]);
+
+  h("付録3 採用ページ・求人票への掲載文");
+  box("掲載文の例",`${s.company}は、採用活動におけるハラスメントを許しません。\n面接やインターンシップなどの場で、不快な言動を受けた場合は、下記の窓口までご相談ください。匿名でのご相談も受け付けています。ご相談いただいたことで、選考に影響することは一切ありません。\n相談窓口:${s.desk}\n連絡先:${s.contact||"(連絡先)"}`);
+
+  B.push({t:"note",text:"この規程は、入力内容をもとに作成したひな形です。実際の運用にあたっては、厚生労働省の指針もあわせて確認してください。就業規則の変更や個別の法的判断が必要な場合は、社会保険労務士・弁護士にご相談ください。"});
+  return B;
+}
+
+/* ---------- プレビュー ---------- */
+const esc = t => String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const br = t => esc(t).replace(/\n/g,"<br>");
+function toHTML(B){
+  let html="", toc=[], n=0;
+  for(const b of B){
+    switch(b.t){
+      case "title": html+=`<p class="dtitle">${esc(b.text)}</p>`;break;
+      case "sub": html+=`<p class="dsub">${esc(b.text)}</p>`;break;
+      case "meta": html+=`<p class="dmeta">${esc(b.text)}</p>`;break;
+      case "h2": n++; html+=`<h2 id="s${n}">${esc(b.text)}</h2>`; toc.push(`<a href="#s${n}">${esc(b.text.replace(/^\d+\.\s*/,""))}</a>`);break;
+      case "h3": html+=`<h3>${esc(b.text)}</h3>`;break;
+      case "scene": html+=`<h3><span class="tag ${b.lv}">${b.lvName}</span>${esc(b.text)}</h3>`;break;
+      case "p": html+=`<p>${esc(b.text)}</p>`;break;
+      case "ul": html+=`<ul>${b.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`;break;
+      case "ol": html+=`<ol>${b.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ol>`;break;
+      case "box": html+=`<div class="box"><div class="bl">${esc(b.label)}</div><p>${br(b.text)}</p></div>`;break;
+      case "table": {
+        const rows=b.rows.map((r,i)=>`<tr class="${b.cls==="lv"?"l"+(i+1):""}">${r.map(c=>`<td>${esc(c)}</td>`).join("")}</tr>`).join("");
+        html+=`<div class="tbl"><table class="${b.cls||""}"><thead><tr>${b.head.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${rows}</tbody></table></div>`;break;}
+      case "note": html+=`<p class="note">${esc(b.text)}</p>`;break;
+    }
+  }
+  return {html,toc:toc.join("")};
+}
+
+/* ---------- テキスト ---------- */
+function toText(B){
+  const out=[];
+  for(const b of B){
+    if(b.t==="h2") out.push("\n■ "+b.text);
+    else if(b.t==="h3") out.push("\n◆ "+b.text);
+    else if(b.t==="scene") out.push(`\n◆ [${b.lvName}] ${b.text}`);
+    else if(b.t==="ul") b.items.forEach(i=>out.push("・"+i));
+    else if(b.t==="ol") b.items.forEach((i,k)=>out.push(`${k+1}. ${i}`));
+    else if(b.t==="box") out.push(`【${b.label}】\n${b.text}`);
+    else if(b.t==="table"){out.push(b.head.join(" | ")); b.rows.forEach(r=>out.push(r.join(" | ")));}
+    else out.push(b.text);
+  }
+  return out.join("\n").trim()+"\n";
+}
+
+/* ---------- Word ---------- */
+function toDocx(B){
+  const D=window.docx, FONT="Yu Gothic";
+  const run=(text,o={})=>new D.TextRun({text,font:FONT,...o});
+  const multi=(text,o={})=>text.split("\n").map((line,i)=>new D.TextRun({text:line,font:FONT,break:i?1:0,...o}));
+  const cell=(text,head,shade)=>new D.TableCell({children:[new D.Paragraph({children:[run(text,{bold:!!head,size:19})]})],
+      shading:head?{fill:"E3EBF2"}:shade?{fill:shade}:undefined,margins:{top:60,bottom:60,left:100,right:100}});
+  const lvFill=["E5F1EA","F7EED9","F8E6DB","F7DEDC"];
+  const kids=[];
+  for(const b of B){
+    switch(b.t){
+      case "title": kids.push(new D.Paragraph({alignment:D.AlignmentType.CENTER,spacing:{after:120},children:[run(b.text,{bold:true,size:36})]}));break;
+      case "sub": kids.push(new D.Paragraph({alignment:D.AlignmentType.CENTER,children:[run(b.text,{size:24})]}));break;
+      case "meta": kids.push(new D.Paragraph({alignment:D.AlignmentType.CENTER,spacing:{after:400},children:[run(b.text,{size:18,color:"5D6B70"})]}));break;
+      case "h2": kids.push(new D.Paragraph({heading:D.HeadingLevel.HEADING_1,spacing:{before:360,after:120},border:{bottom:{style:D.BorderStyle.SINGLE,size:8,color:"1B2629",space:4}},children:[run(b.text,{bold:true,size:28,color:"1B2629"})]}));break;
+      case "h3": kids.push(new D.Paragraph({heading:D.HeadingLevel.HEADING_2,spacing:{before:240,after:80},children:[run(b.text,{bold:true,size:23,color:"1B2629"})]}));break;
+      case "scene": kids.push(new D.Paragraph({heading:D.HeadingLevel.HEADING_2,spacing:{before:240,after:80},children:[run(`[${b.lvName}] `,{bold:true,size:21,color:"C0612B"}),run(b.text,{bold:true,size:23,color:"1B2629"})]}));break;
+      case "p": kids.push(new D.Paragraph({spacing:{after:120},children:[run(b.text,{size:21})]}));break;
+      case "ul": b.items.forEach(i=>kids.push(new D.Paragraph({indent:{left:360,hanging:240},spacing:{after:60},children:[run("・"+i,{size:21})]})));break;
+      case "ol": b.items.forEach((i,k)=>kids.push(new D.Paragraph({indent:{left:360,hanging:280},spacing:{after:60},children:[run(`${k+1}. ${i}`,{size:21})]})));break;
+      case "box": kids.push(new D.Table({width:{size:100,type:D.WidthType.PERCENTAGE},rows:[new D.TableRow({children:[new D.TableCell({shading:{fill:"F2F4F5"},margins:{top:120,bottom:120,left:160,right:160},children:[
+          new D.Paragraph({children:[run(b.label,{bold:true,size:18,color:"2D4F6C"})]}),new D.Paragraph({children:multi(b.text,{size:21})})]})]})]}));
+        kids.push(new D.Paragraph({children:[]}));break;
+      case "table": kids.push(new D.Table({width:{size:100,type:D.WidthType.PERCENTAGE},rows:[
+          new D.TableRow({tableHeader:true,children:b.head.map(c=>cell(c,true))}),
+          ...b.rows.map((r,i)=>new D.TableRow({children:r.map((c,j)=>cell(c||" ",false,b.cls==="lv"&&j===0?lvFill[i]:null))}))]}));
+        kids.push(new D.Paragraph({children:[]}));break;
+      case "note": kids.push(new D.Paragraph({spacing:{before:400},children:[run(b.text,{size:17,color:"5D6B70"})]}));break;
+    }
+  }
+  return new D.Document({styles:{default:{document:{run:{font:FONT,size:21}}}},sections:[{properties:{page:{margin:{top:1134,bottom:1134,left:1134,right:1134}}},children:kids}]});
+}
+
+/* ---------- 画面の更新 ---------- */
+let current=[];
+function render(){
+  const s=read(); current=build(s);
+  const {html,toc}=toHTML(current);
+  $("doc").innerHTML=html; $("toc").innerHTML=toc;
+  try{localStorage.setItem("shukatsu-form",JSON.stringify(s));}catch(e){}
+}
+function restore(){
+  let saved=null;
+  try{ saved=JSON.parse(localStorage.getItem("shukatsu-form")||"null"); }catch(e){}
+  if(!saved) return;
+  FIELDS.forEach(k=>{const el=$(k); if(!el||!(k in saved)) return; if(el.type==="checkbox") el.checked=!!saved[k]; else el.value=saved[k];});
+}
+const say=t=>{$("status").textContent=t;};
+$("f").addEventListener("input",render);
+$("f").addEventListener("submit",e=>e.preventDefault());
+
+$("copyBtn").addEventListener("click",()=>{
+  const text=toText(current);
+  navigator.clipboard.writeText(text).then(()=>say("マニュアルの全文をコピーしました。"),()=>{
+    const r=document.createRange(); r.selectNodeContents($("doc")); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    say("自動でコピーできなかったため、本文を選択しました。コピー操作でお使いください。");
+  });
+});
+
+/* ---------- Googleドキュメント用(書式つきHTML) ---------- */
+function toClipHTML(B){
+  const F='font-family:Arial,sans-serif;';
+  const td='border:1px solid #999;padding:4px 8px;vertical-align:top;font-size:10.5pt;';
+  const lvBg=["#E5F1EA","#F7EED9","#F8E6DB","#F7DEDC"];
+  let o=`<div style="${F}">`;
+  for(const b of B){
+    switch(b.t){
+      case "title": o+=`<h1 style="text-align:center">${esc(b.text)}</h1>`;break;
+      case "sub": o+=`<p style="text-align:center;font-size:13pt">${esc(b.text)}</p>`;break;
+      case "meta": o+=`<p style="text-align:center;color:#666;font-size:9pt">${esc(b.text)}</p>`;break;
+      case "h2": o+=`<h2>${esc(b.text)}</h2>`;break;
+      case "h3": o+=`<h3>${esc(b.text)}</h3>`;break;
+      case "scene": o+=`<h3><span style="color:#C0612B">[${esc(b.lvName)}]</span> ${esc(b.text)}</h3>`;break;
+      case "p": o+=`<p>${esc(b.text)}</p>`;break;
+      case "ul": o+=`<ul>${b.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>`;break;
+      case "ol": o+=`<ol>${b.items.map(i=>`<li>${esc(i)}</li>`).join("")}</ol>`;break;
+      case "box": o+=`<table style="border-collapse:collapse;width:100%"><tr><td style="${td}background:#F2F4F5;padding:8px 12px"><b style="color:#2D4F6C;font-size:9pt">${esc(b.label)}</b><br>${br(b.text)}</td></tr></table><p></p>`;break;
+      case "table": o+=`<table style="border-collapse:collapse;width:100%"><tr>${b.head.map(c=>`<th style="${td}background:#E3EBF2;text-align:left">${esc(c)}</th>`).join("")}</tr>${b.rows.map((r,i)=>`<tr>${r.map((c,j)=>`<td style="${td}${b.cls==="lv"&&j===0?`background:${lvBg[i]};font-weight:bold;`:""}">${esc(c)||"&nbsp;"}</td>`).join("")}</tr>`).join("")}</table><p></p>`;break;
+      case "note": o+=`<p style="color:#666;font-size:9pt">${esc(b.text)}</p>`;break;
+    }
+  }
+  return o+"</div>";
+}
+$("gdocBtn").addEventListener("click",async()=>{
+  const html=toClipHTML(current), text=toText(current);
+  let ok=false;
+  try{
+    if(window.ClipboardItem && navigator.clipboard && navigator.clipboard.write){
+      await navigator.clipboard.write([new ClipboardItem({"text/html":new Blob([html],{type:"text/html"}),"text/plain":new Blob([text],{type:"text/plain"})})]);
+      ok=true;
+    }
+  }catch(e){}
+  if(!ok){
+    try{
+      const tmp=document.createElement("div"); tmp.innerHTML=html; tmp.style.cssText="position:fixed;left:-9999px;top:0;";
+      document.body.appendChild(tmp);
+      const r=document.createRange(); r.selectNodeContents(tmp); const sel=getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      ok=document.execCommand("copy"); sel.removeAllRanges(); tmp.remove();
+    }catch(e){ ok=false; }
+  }
+  if(ok){ $("gdocHelp").hidden=false; say(""); }
+  else { $("gdocHelp").hidden=true; say("この画面では書式つきのコピーができませんでした。「Wordで保存」したファイルをGoogleドライブにアップロードして開いてください。"); }
+});
+
+/* ---------- Word保存(通常のダウンロード) ---------- */
+if(window.docx) $("docxBtn").hidden=false;
+$("docxBtn").addEventListener("click",async()=>{
+  try{
+    say("Wordファイルを作成しています…");
+    const blob=await window.docx.Packer.toBlob(toDocx(current));
+    const name=`就活セクハラ防止規程_${read().company.replace(/[\\/:*?"<>|\s]+/g,"")}.docx`;
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a"); a.href=url; a.download=name;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+    say("Wordファイルを保存しました。");
+  }catch(e){ say("Wordファイルを作成できませんでした。「テキストをコピー」をお使いください。"); }
+});
+
+restore(); render();
+</script>
+
+</body>
+</html>
